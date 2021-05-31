@@ -1,0 +1,23 @@
+<nav class="navbar">
+  <div class="title">
+    <a href="/"><h2>HPGroceries</h2></a>
+  </div>
+  <div class="links">
+    <div><a href="/">Home</a></div>
+    <div>
+      <form action="/search">
+        <input type="text" name="q" />
+        <button>&#x1F50E;</button>
+      </form>
+    </div>
+    <% if(!currentUser) {%>
+    <a href="/register">Sign Up</a>
+    <a href="/login">Login</a>
+    <% } else { %>
+    <a href="logout">Logout</a>
+    <% } %>
+    <a href="/cart" style="font-size: 20px"
+      >My Cart <i class="fa fa-shopping-cart"></i
+    ></a>
+  </div>
+</nav>

@@ -1,0 +1,30 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="show-ctn">
+  <div class="sub-ctn s1">
+    <div><h2><%= product.Name %></h2></div>
+    <div class="img-ctn">
+      <img src="<%= product.Images[0] %> " alt="error" />
+    </div>
+  </div>
+
+  <div class="sub-ctn s2">
+    <h4>Price : &#x20B9;<%= product.Price %> per kg</h4>
+    <form action="/addToCart/<%= product._id %>" method="POST">
+      <div>
+        <label for="Quantity">Quantity:</label>
+        <select name="quantity" id="Quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+      </div>
+      <button><i class="fa fa-cart-plus"></i>Add to cart</button>
+    </form>
+  </div>
+</div>
+
+<footer>&#169;HandPickedGroceries</footer>

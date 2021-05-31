@@ -1,0 +1,21 @@
+<% if( success.length != 0 && success) {%>
+<div class="flash f-success">
+  <h3><%= success %></h3>
+  <button><i class="fa fa-times"></i></button>
+</div>
+<% } %> <% if( error.length != 0 &&error) { %>
+<div class="flash f-error">
+  <h3><%= error %></h3>
+  <button><i class="fa fa-times"></i></button>
+</div>
+<% } %>
+
+<!-- 
+<div class="flash f-success">
+  <h3>Successfully Logged in!!</h3>
+  <button><i class="fa fa-times"></i></button>
+</div>
+<div class="flash f-danger">
+  <h3>Successfully Logged in!!</h3>
+  <button><i class="fa fa-times"></i></button>
+</div> -->

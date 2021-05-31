@@ -1,0 +1,33 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="intro">
+  <h1 class="animate__fadeInUp">Welcome to the Our Website</h1>
+  <h2 class="animate__fadeInUp">
+    Have a look at our fresh fruits and Vegtables
+  </h2>
+</div>
+
+<div class="ctn">
+  <div class="prod-ctn">
+    <% for(let product of products) {%>
+    <div class="card">
+      <a class="card-heading" href="/products/<%= product._id %> "
+        ><h3><%= product.Name %></h3></a
+      >
+      <img src="<%= product.Images[0] %> " alt="Error" class="card-image" />
+      <h5 class="card-price">Price - &#x20B9; <%= product.Price%> per kg</h5>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<!--
+<div class="card">
+  <h3  class="card-heading">BROCCOLI</h3>
+  <img
+    src="https://www.growjoy.com/store/pc/catalog/coronado_crown_broccoli_plant_1697_detail.jpg"
+    alt="Error"
+    class="card-image"
+  />
+  <h5 class="card-price">Price - &#x20B9 120 per kg</h5>
+</div> -->

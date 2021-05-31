@@ -1,0 +1,9 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="card">
+  <a class="card-heading" href="/products/<%= searchRes[0]._id %> "
+    ><h3><%= searchRes[0].Name %></h3></a
+  >
+  <img src="<%= searchRes[0].Images[0] %> " alt="Error" class="card-image" />
+  <h5 class="card-price">Price - &#x20B9; <%= searchRes[0].Price%> per kg</h5>
+</div>
