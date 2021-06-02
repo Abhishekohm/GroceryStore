@@ -105,7 +105,7 @@ body {
 .prod-ctn {
   display: flex;
   width: 1200px;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
 }
 
@@ -360,4 +360,25 @@ input[type="submit"]:hover {
 
 .error-ctn h3 {
   border-bottom: 2px solid black;
+}
+
+.check-out-box {
+  width: 90vw;
+  height: 100px;
+  background-color: inherit;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.check-out-box button {
+  height: 50px;
+  width: 150px;
+  font-size: 20px;
+}
+
+.overview ol {
+  list-style-type: none;
+  padding: 0px;
 }

@@ -1,0 +1,24 @@
+<% layout('layouts/boilerplate') %>
+
+<ul class="overview">
+  Your Orders: <% for(let product of products) { %>
+  <li>
+    <ol>
+      <li><%= product.product.Name %></li>
+      <li><%= product.product.Price %> per Kg</li>
+      <li><%= product.quantity %> Units</li>
+      <li>Sub total - <%= product.product.Price*product.quantity%></li>
+    </ol>
+  </li>
+  <% } %>
+</ul>
+
+<h2>Grand Total - <%= price %></h2>
+
+<form action="/order" method="POST">
+  <div>
+    <label for="address">Enter your address:</label>
+    <input type="text" name="address" id="address" />
+  </div>
+  <button>Place Order</button>
+</form>

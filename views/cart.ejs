@@ -3,28 +3,34 @@
   <div class="prod-ctn">
     <% for(let product of products) {%>
     <div class="card card-cart">
-      <a class="card-heading" href="/products/<%= product.productData._id %> "
-        ><h3><%= product.productData.Name %></h3></a
+      <a class="card-heading" href="/products/<%= product.product._id %> "
+        ><h3><%= product.product.Name %></h3></a
       >
       <img
-        src="<%= product.productData.Images[0] %> "
+        src="<%= product.product.Images[0] %> "
         alt="Error"
         class="card-image"
       />
       <div class="p-ctn">
         <h5 class="card-price">
-          Price - &#x20B9; <%= product.productData.Price%> per kg
+          Price - &#x20B9; <%= product.product.Price%> per kg
         </h5>
         <h5 class="card-quantity">Units - <%= product.quantity %></h5>
         <h5 class="card-Tprice">
-          Total Price - &#x20B9; <%= product.productData.Price *
-          product.quantity%>
+          Total Price - &#x20B9; <%= product.product.Price * product.quantity%>
         </h5>
-        <a href="/removeFromCart/<%= product.productData._id %> "
+        <a href="/removeFromCart/<%= product.product._id %> "
           ><button>Remove From cart</button></a
         >
       </div>
     </div>
     <% } %>
   </div>
+</div>
+
+<div class="check-out-box">
+  <h3>Total cost = <%= price %></h3>
+  <form action="/checkout" method="GET">
+    <button>Checkout</button>
+  </form>
 </div>

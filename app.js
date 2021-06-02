@@ -51,18 +51,6 @@ const Search = (products, key) => {
   });
 };
 
-const SearchByID = async (productDatas) => {
-  let result = [];
-  for (let productData of productDatas) {
-    const pushObj = {
-      productData: await Product.findById(productData.prodid),
-      quantity: productData.quantity,
-    };
-    result.push(pushObj);
-  }
-  return result;
-};
-
 const filterOff = (arr, key) => {
   let result = arr.filter((product) => {
     if (product.prodid != key) return true;
@@ -86,20 +74,28 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", async (req, res) => {
   const products = await Product.find({});
+  // console.log(products);
   res.render("homepage", { products });
 });
 
-app.get("/products/:productID", async (req, res) => {
-  const { productID } = req.params;
-  const product = await Product.findById(productID);
-  res.render("show", { product });
+app.get("/products/:productID", async (req, res, next) => {
+  try {
+    const { productID } = req.params;
+    const product = await Product.findById(productID);
+    if (!product) return next(new Error("Product Not found"));
+    res.render("show", { product });
+  } catch (error) {
+    next(error);
+  }
 });
 
-app.get("/search", async (req, res) => {
+app.get("/search", async (req, res, next) => {
   const key = req.query.q;
   if (key) {
     const products = await Product.find({});
     const searchRes = Search(products, key);
+    if (searchRes.length == 0)
+      return next(new Error("product is not available"));
     return res.render("searchResult", { searchRes });
   }
   req.flash("error", "Please enter a keyword to search");
@@ -115,7 +111,13 @@ app.post("/register", validateRForm, async (req, res, next) => {
     const { username, password, email } = req.body;
     const user = new User({ email, username });
     const newUser = await User.register(user, password);
-    req.login(newUser, (err) => {});
+    req.login(newUser, (err) => {
+      if (err) {
+        req.flash("error", err.message);
+        return res.redirect("/register");
+      }
+    });
+    req.flash("success", "Successfully registered Happy Shoping :)");
     res.redirect("/");
   } catch (error) {
     next(error);
@@ -133,8 +135,12 @@ app.post(
     failureFlash: true,
   }),
   (req, res) => {
-    req.flash("success", "Successfully logged in!!!!");
-    res.redirect("/");
+    if (!req.session.lastPage) res.redirect("/");
+    else {
+      const route = req.session.lastPage;
+      delete req.session.lastPage;
+      res.redirect(route);
+    }
   }
 );
 
@@ -159,6 +165,24 @@ app.post("/addToCart/:prodID", (req, res) => {
   res.redirect("/");
 });
 
+const SearchByID = async (productDatas) => {
+  let result = [];
+  let cost = 0;
+  for (let productData of productDatas) {
+    const pushObj = {
+      product: await Product.findById(productData.prodid),
+      quantity: productData.quantity,
+    };
+    result.push(pushObj);
+    cost += pushObj.product.Price * productData.quantity;
+  }
+
+  return {
+    Result: result,
+    Cost: cost,
+  };
+};
+
 app.get("/cart", async (req, res, next) => {
   try {
     const productDatas = req.session.cart;
@@ -166,8 +190,8 @@ app.get("/cart", async (req, res, next) => {
       req.flash("error", "Your cart is empty");
       return res.redirect("/");
     }
-    const products = await SearchByID(productDatas);
-    res.render("cart", { products });
+    const Rproducts = await SearchByID(productDatas);
+    res.render("cart", { products: Rproducts.Result, price: Rproducts.Cost });
   } catch (error) {
     next(error);
   }
@@ -182,6 +206,31 @@ app.get("/removeFromCart/:productID", (req, res) => {
   req.session.cart = filterOff(req.session.cart, reqObjID);
   req.flash("success", "Succesfully removed from cart");
   res.redirect("/cart");
+});
+
+app.get("/checkout", isLoggedIn, async (req, res, next) => {
+  try {
+    const productDatas = req.session.cart;
+    if (!productDatas || productDatas.length == 0) {
+      req.flash("error", "Your cart is empty");
+      return res.redirect("/");
+    }
+    const Rproducts = await SearchByID(productDatas);
+    res.render("details", {
+      products: Rproducts.Result,
+      price: Rproducts.Cost,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post("/order", (req, res) => {
+  res.send("Your order is placed. It will be delivered within next 48 hours");
+});
+
+app.all("*", (req, res) => {
+  throw new Error("Page not found");
 });
 
 app.use((err, req, res, next) => {
