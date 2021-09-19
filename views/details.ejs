@@ -1,24 +1,42 @@
 <% layout('layouts/boilerplate') %>
-
-<ul class="overview">
-  Your Orders: <% for(let product of products) { %>
-  <li>
-    <ol>
-      <li><%= product.product.Name %></li>
-      <li><%= product.product.Price %> per Kg</li>
-      <li><%= product.quantity %> Units</li>
-      <li>Sub total - <%= product.product.Price*product.quantity%></li>
-    </ol>
-  </li>
-  <% } %>
-</ul>
-
-<h2>Grand Total - <%= price %></h2>
-
-<form action="/order" method="POST">
-  <div>
-    <label for="address">Enter your address:</label>
-    <input type="text" name="address" id="address" />
-  </div>
-  <button>Place Order</button>
-</form>
+<div class="tableCtn">
+  <table class="content-table">
+    <thead>
+      <tr>
+        <th>Sr.no.</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Units</th>
+        <th>Sub total</th>
+      </tr>
+    </thead>
+    <tbody class="body">
+      <% for(let i = 0; i < products.length; i++){ %>
+      <tr>
+        <td><%= i+1 %></td>
+        <td><%= products[i].product.Name.toUpperCase() %></td>
+        <td>&#8377;<%= products[i].product.Price %></td>
+        <td><%= products[i].quantity %></td>
+        <td>&#8377;<%= products[i].quantity * products[i].product.Price %></td>
+      </tr>
+      <%} %>
+    </tbody>
+    <tfoot class="foot">
+      <tr class="row">
+        <td>Grand Total -</td>
+        <td>&#8377;<%= price %></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+<!-- <tbody class="body">
+    <% for(let i = 0; i < products.length; i++){ %>
+    <tr >
+      <td><%= i+1 %> </td>
+      <td><%= products[i].Name %> </td>
+      <td><%=  %> </td>
+      <td><%=  %> </td>
+      <td><%=  %> </td>
+    </tr>
+    <%} %>
+  </tbody> -->

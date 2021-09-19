@@ -5,6 +5,7 @@ module.exports.isLoggedIn = (req, res, next) => {
   if (req.user) return next();
   req.flash("error", "Login in first");
   req.session.lastPage = req.originalUrl;
+  console.log(req.session.lastPage);
   res.redirect("/login");
 };
 

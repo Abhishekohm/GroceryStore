@@ -42,15 +42,6 @@ app.use((req, res, next) => {
   next();
 });
 
-const Search = (products, key) => {
-  return products.filter((product) => {
-    for (let tag of product.Tag) {
-      if (tag.toUpperCase() === key.toUpperCase()) return true;
-    }
-    return false;
-  });
-};
-
 const filterOff = (arr, key) => {
   let result = arr.filter((product) => {
     if (product.prodid != key) return true;
@@ -92,11 +83,12 @@ app.get("/products/:productID", async (req, res, next) => {
 app.get("/search", async (req, res, next) => {
   const key = req.query.q;
   if (key) {
-    const products = await Product.find({});
-    const searchRes = Search(products, key);
-    if (searchRes.length == 0)
+    const products = await Product.find({
+      Name: { $regex: key, $options: "$i" },
+    });
+    if (products.length == 0)
       return next(new Error("product is not available"));
-    return res.render("searchResult", { searchRes });
+    return res.render("searchResult", { products });
   }
   req.flash("error", "Please enter a keyword to search");
   res.redirect("/");
@@ -125,6 +117,7 @@ app.post("/register", validateRForm, async (req, res, next) => {
 });
 
 app.get("/login", (req, res) => {
+  // console.log(req.originalUrl);
   res.render("loginForm");
 });
 
@@ -216,6 +209,7 @@ app.get("/checkout", isLoggedIn, async (req, res, next) => {
       return res.redirect("/");
     }
     const Rproducts = await SearchByID(productDatas);
+    // console.log(Rproducts.Result);
     res.render("details", {
       products: Rproducts.Result,
       price: Rproducts.Cost,
@@ -238,4 +232,8 @@ app.use((err, req, res, next) => {
   res.render("error", { err });
 });
 
-app.listen(8000);
+const port = 8000;
+
+app.listen(port, () => {
+  console.log(`Hosted your application at local host ${port}`);
+});

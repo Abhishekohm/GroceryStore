@@ -12,7 +12,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-image: url(/CSS/images/bg-image-1.jpg);
   background-size: 100% auto;
   color: rgb(255, 255, 255);
 }
@@ -33,12 +32,22 @@ a {
 body {
   width: 98.2vw;
   min-height: 100vh;
-  background-color: #80ffdb;
+  background-color: #9ffbe1a8;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.searchResCtn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .card {
-  height: 500px;
-  width: 350px;
+  height: 400px;
+  width: 250px;
   overflow: hidden;
   border: 2px solid rgb(190, 185, 185);
   display: flex;
@@ -52,6 +61,7 @@ body {
 
 .card-cart {
   height: 600px;
+  width: 400px;
 }
 
 .p-ctn {
@@ -73,6 +83,7 @@ body {
 .card-image {
   height: 200px;
   width: 200px;
+  object-fit: contain;
 }
 
 .card-heading {
@@ -102,17 +113,23 @@ body {
   border-bottom: 2px solid rgb(190, 185, 185);
 }
 
+.ctn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 .prod-ctn {
   display: flex;
-  width: 1200px;
+  width: 90vw;
   justify-content: space-around;
   flex-wrap: wrap;
+  background-color: #80ffdb;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
-  background-color: rgb(0, 0, 0);
+  background-color: #1b4332;
   color: white;
   width: 98.8vw;
   height: 70px;
@@ -121,6 +138,7 @@ body {
   top: 0;
   left: 0;
   margin-bottom: 50px;
+  z-index: 100;
 }
 
 .title {
@@ -146,84 +164,93 @@ body {
   outline: none;
 }
 
-.ctn {
-  display: flex;
-  justify-content: center;
-}
-
 /* show page */
 
 .show-ctn {
-  width: 60vw;
-  height: 600px;
+  width: 80%;
+  height: auto;
+  margin: 50px auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.products-ctn {
+  width: 50%;
+  height: auto;
+  padding: 20px;
+  background-color: #00ffb8;
   border: 2px solid black;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 50px 20px;
-  background-color: rgb(47, 177, 200);
-  border-radius: 20px;
 }
-
-.sub-ctn {
-  display: flex;
-  flex-direction: column;
-}
-
-.sub-ctn .img-ctn {
-  height: 500px;
-  width: 500px;
-  overflow: hidden;
-}
-
-.s2 {
-  height: 80%;
+.products-ctn img {
+  height: 300px;
   width: 400px;
+  object-fit: contain;
+  margin: auto;
 }
 
-.s2 h4 {
-  font-size: 30px;
-  margin: 0 0 10px 10px;
+.products-ctn .img-ctn {
+  width: 400px;
+  margin: auto;
+  background-color: white;
 }
-.s2 label {
-  font-size: 30px;
-  margin: 0 0 10px 10px;
+
+.products-ctn h2 {
+  margin: 20px 0;
+  font-size: 3rem;
 }
-.s2 select {
-  height: 30px;
+
+.products-ctn h4 {
+  margin: 20px 0;
+  font-size: 1.5rem;
+}
+.products-ctn form div {
+  display: inline-flex;
+}
+
+.products-ctn form label {
+  font-size: 1.3rem;
+}
+
+.products-ctn form select {
+  width: 50px;
+  margin: 0 10px;
+}
+
+.products-ctn form button {
   width: 100px;
-  margin: 0 0 10px 10px;
-}
-.s2 option {
-  font-size: 15px;
-}
-.s2 button {
-  height: 50px;
-  width: 200px;
-  font-size: 20px;
-  margin: 0 0 10px 10px;
+  height: 27px;
 }
 
-.s1 img {
-  height: 500px;
-  width: 500px;
+/*  ------------------------------- Reviews _______________________________________*/
+
+.reviews {
+  width: 50%;
+  height: 100%;
+  /* border: 2px solid black; */
+  background-color: inherit;
+  padding: 20px;
+}
+.reviews ul {
+  padding: 0;
 }
 
 /* Footer */
 
 footer {
+  width: 100%;
   height: 100px;
-  width: 98.8vw;
   color: white;
-  background-color: black;
+  background-color: #1b4332;
+  margin-top: auto;
 }
+
+/* flash */
 
 .flash {
   display: flex;
   justify-content: space-between;
-  height: 40px;
+  height: 50px;
   /* border: 2px solid black; */
   padding-top: 10px;
   padding-left: 5px;
@@ -236,7 +263,7 @@ footer {
   margin-left: 100px;
 }
 .flash button {
-  height: 20px;
+  height: 30px;
   margin-right: 10px;
 }
 
@@ -246,17 +273,22 @@ footer {
 .f-error {
   background-color: rgba(255, 0, 0, 0.76);
 }
-/* Login form CSS */
+/* Login & Register form CSS */
+
+.align {
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
 .center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   width: 400px;
   background: white;
   border-radius: 10px;
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
+  margin: auto;
 }
 .center h1 {
   text-align: center;
@@ -381,4 +413,78 @@ input[type="submit"]:hover {
 .overview ol {
   list-style-type: none;
   padding: 0px;
+}
+
+.imgCtn {
+  height: 600px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.imgCtn img {
+  opacity: 0.8;
+}
+
+.item h5 {
+  font-size: 40px;
+  color: rgb(0, 0, 0);
+  font-weight: 900;
+}
+
+.item p {
+  font-size: 20px;
+  color: black;
+  font-weight: 900;
+}
+
+.item h5 sub {
+  font-size: 10px;
+}
+
+/* Checkout page */
+
+.tableCtn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  max-width: 60%;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.content-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
 }
